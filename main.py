@@ -20,16 +20,20 @@ def add_quotes(new_quote):
   else:
     db["quotes"] = [new_quote]
 
+def reset():
+  if "quotes" in db.keys():
+    del db["quotes"]
+
 @client.event
 async def on_ready():
-  print('We have logged in as {0.user}'.format(client))
+  print("We have logged in as {0.user}".format(client))
 
 @client.event
 async def on_message(message):
   if message.author == client.user:
     return
 
-  if message.content.startswith('$hitme'):
+  if message.content.startswith("$hitme"):
     quote = get_quote()
     await message.channel.send(quote)
 
@@ -37,7 +41,10 @@ async def on_message(message):
     quote = message.content.split("$add ", 1)[1]
     add_quotes(quote)
     await message.channel.send("New quote added.")
-
+  
+  if message.content.startswith("$reset"):
+    reset()
+    await message.channel.send("All quotes reset.")
 
 run = os.environ['spot bot key']
 yap()
