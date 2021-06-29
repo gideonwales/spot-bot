@@ -40,7 +40,7 @@ async def on_message(message):
   if message.content.startswith("$add"):
     quote = message.content.split("$add ", 1)[1]
     add_quotes(quote)
-    await message.channel.send("New quote added.")
+    #await message.channel.send("New quote added.")
   
   if message.content.startswith("$reset"):
     reset()
